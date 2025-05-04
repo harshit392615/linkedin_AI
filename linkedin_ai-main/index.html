@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn ProCoach</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <!-- Speech Recognition Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <!-- Text to Speech Library -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#" class="logo">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+        <div class="nav-center">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-network-wired"></i>
+                <span>My Network</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-briefcase"></i>
+                <span>Jobs</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-comment-dots"></i>
+                <span>Messaging</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+            <button id="aiAssistantBtn" class="nav-item ai-assistant-btn">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+            </button>
+            <button id="aiInterviewBtn" class="nav-item ai-interview-btn">
+                <i class="fas fa-comments"></i>
+                <span>AI Interview</span>
+            </button>
+        </div>
+        <div class="nav-right">
+            <div class="profile">
+                <img src="https://media.licdn.com/dms/image/v2/D4E03AQGs0jP2KkqN0Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1709296901834?e=1751500800&v=beta&t=B6avhTgP-0wlpuU0Y_2eV7KWFdWqDHLD31notYYsk34" alt="Profile">
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="left-sidebar">
+            <div class="profile-card">
+                <div class="profile-cover">
+                    <img src="https://i.pinimg.com/736x/c8/67/3a/c8673ad4c46ade00cf3bd0049db62b16.jpg" alt="Cover">
+                </div>
+                <div class="profile-info">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E03AQGs0jP2KkqN0Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1709296901834?e=1751500800&v=beta&t=B6avhTgP-0wlpuU0Y_2eV7KWFdWqDHLD31notYYsk34" alt="Profile" class="profile-pic">
+                    <h3>Harshit bansal</h3>
+                    <p>web developer</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span>500+</span>
+                            <span>Connections</span>
+                        </div>
+                        <div class="stat">
+                            <span>50+</span>
+                            <span>Followers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h4>Recent</h4>
+                <div class="recent-item">
+                    <i class="fas fa-hashtag"></i>
+                    <span>#webdevelopment</span>
+                </div>
+                <div class="recent-item">
+                    <i class="fas fa-hashtag"></i>
+                    <span>#javascript</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="create-post">
+                <img src="https://media.licdn.com/dms/image/v2/D4E03AQGs0jP2KkqN0Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1709296901834?e=1751500800&v=beta&t=B6avhTgP-0wlpuU0Y_2eV7KWFdWqDHLD31notYYsk34" alt="Profile" class="post-profile">
+                <input type="text" placeholder="Start a post">
+                <div class="post-options">
+                    <button><i class="fas fa-image"></i> Photo</button>
+                    <button><i class="fas fa-video"></i> Video</button>
+                    <button><i class="fas fa-calendar"></i> Event</button>
+                    <button><i class="fas fa-newspaper"></i> Article</button>
+                </div>
+            </div>
+
+            <div class="feed">
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://media.licdn.com/dms/image/v2/D560BAQHgroLObq3Vow/company-logo_200_200/company-logo_200_200/0/1684958729104?e=1751500800&v=beta&t=SUuhxBzdFxF266gHdNASw3xY_4NNUrCgxEA7Wxtpb-E" alt="Profile">
+                        <div class="post-info">
+                            <h4>Outlier AI</h4>
+                            <p>Technology, Information and Internet • 2d</p>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Winner of The Level Up Vibe Coding Hackathon is Harshit Bansal</p>
+                        <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=280,height=280/event-covers/f9/a9b6ecd3-75ef-44c8-9cd2-c26ad53c2c36.png" alt="Post Image">
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="far fa-thumbs-up"></i> Like</button>
+                        <button><i class="far fa-comment"></i> Comment</button>
+                        <button><i class="far fa-share-square"></i> Share</button>
+                        <button><i class="far fa-paper-plane"></i> Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-sidebar">
+            <div class="news-card">
+                <h3>LinkedIn News</h3>
+                <ul>
+                    <li>
+                        <h4>Tech Industry Growth</h4>
+                        <p>2d ago • 5,000 readers</p>
+                    </li>
+                    <li>
+                        <h4>Remote Work Trends</h4>
+                        <p>3d ago • 3,000 readers</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="suggestions-card">
+                <h3>People you may know</h3>
+                <div class="suggestion">
+                    <img src="https://mikejohnson.house.gov/images/official-photo-2025.png" alt="Profile">
+                    <div class="suggestion-info">
+                        <h4>Mike Johnson</h4>
+                        <p>Product Manager</p>
+                    </div>
+                    <button>Connect</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ai-assistant-container">
+        <div class="ai-assistant-box">
+            <div class="ai-assistant-header">
+                <h3>AI Assistant</h3>
+                <button class="close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="ai-assistant-options">
+                <div class="category-section">
+                    <h3>Select a Category</h3>
+                    <div class="category-buttons">
+                        <button class="category-btn" data-category="resume">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Resume Tools</span>
+                        </button>
+                        <button class="category-btn" data-category="job">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Job Search</span>
+                        </button>
+                        <button class="category-btn" data-category="interview">
+                            <i class="fas fa-comments"></i>
+                            <span>Interview Prep</span>
+                        </button>
+                        <button class="category-btn" data-category="cover-letter">
+                            <i class="fas fa-envelope"></i>
+                            <span>Cover Letter</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="options-section resume-options" style="display: none;">
+                    <h3>Resume Tools</h3>
+                    <button class="ai-option" data-option="resume">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Create Resume</span>
+                    </button>
+                    <button class="ai-option" data-option="analyze">
+                        <i class="fas fa-search"></i>
+                        <span>Analyze Resume</span>
+                    </button>
+                    <button class="ai-option" data-option="improve">
+                        <i class="fas fa-magic"></i>
+                        <span>Improve Resume</span>
+                    </button>
+                </div>
+
+                <div class="options-section job-options" style="display: none;">
+                    <h3>Job Search</h3>
+                    <button class="ai-option" data-option="job-search">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Job Search Tips</span>
+                    </button>
+                    <button class="ai-option" data-option="job-alerts">
+                        <i class="fas fa-bell"></i>
+                        <span>Set Job Alerts</span>
+                    </button>
+                </div>
+
+                <div class="options-section interview-options" style="display: none;">
+                    <h3>Interview Preparation</h3>
+                    <button class="ai-option" data-option="interview-prep">
+                        <i class="fas fa-comments"></i>
+                        <span>Interview Preparation</span>
+                    </button>
+                    <button class="ai-option" data-option="practice">
+                        <i class="fas fa-video"></i>
+                        <span>Practice Interview</span>
+                    </button>
+                </div>
+
+                <div class="options-section cover-letter-options" style="display: none;">
+                    <h3>Cover Letter</h3>
+                    <button class="ai-option" data-option="cover-letter">
+                        <i class="fas fa-envelope"></i>
+                        <span>Write Cover Letter</span>
+                    </button>
+                    <button class="ai-option" data-option="cover-letter-tips">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Cover Letter Tips</span>
+                    </button>
+                </div>
+            </div>
+            <div class="ai-assistant-chat">
+                <div class="chat-messages">
+                    <div class="message ai-message">
+                        <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type your message...">
+                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    <button class="speech-btn"><i class="fas fa-microphone"></i></button>
+                    <button class="tts-btn"><i class="fas fa-volume-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ai-interview-container">
+        <div class="ai-interview-box">
+            <div class="interview-container">
+                <div class="interview-left">
+                    <div class="video-container">
+                        <video id="camera-feed" autoplay playsinline></video>
+                        <div class="video-controls">
+                            <button id="toggle-camera" class="control-btn">
+                                <i class="fas fa-video"></i>
+                            </button>
+                            <button id="toggle-mic" class="control-btn">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button id="end-interview" class="control-btn end-btn">
+                                <i class="fas fa-phone-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="metrics-container">
+                        <div class="metric-card">
+                            <div class="metric-title">Emotion</div>
+                            <div class="metric-value" id="emotion-value">--</div>
+                            <div class="metric-description">Current emotional state</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Confidence</div>
+                            <div class="metric-value" id="confidence-value">--%</div>
+                            <div class="metric-description">Speaking confidence level</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Posture</div>
+                            <div class="metric-value" id="posture-value">--</div>
+                            <div class="metric-description">Body posture analysis</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Overall Score</div>
+                            <div class="metric-value" id="overall-score">--%</div>
+                            <div class="metric-description">Interview performance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interview-right">
+                    <div class="interview-chat">
+                        <div class="chat-messages">
+                            <div class="message ai-message">
+                                <p>Welcome to your AI Interview! I'll be asking you questions and analyzing your responses. Are you ready to begin?</p>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" placeholder="Type your response...">
+                            <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                            <button class="speech-btn"><i class="fas fa-microphone"></i></button>
+                            <button class="tts-btn"><i class="fas fa-volume-up"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <!-- Resume Modal -->
+    <div id="resumeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Your Resume</h2>
+            <form id="resumeForm" class="resume-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn Profile</label>
+                        <input type="url" id="linkedin" name="linkedin">
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolio">Portfolio Website</label>
+                        <input type="url" id="portfolio" name="portfolio">
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="form-section">
+                    <h3>Professional Summary</h3>
+                    <div class="form-group">
+                        <label for="summary">Summary *</label>
+                        <textarea id="summary" name="summary" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Work Experience -->
+                <div class="form-section">
+                    <h3>Work Experience</h3>
+                    <div id="experienceContainer">
+                        <div class="experience-item">
+                            <div class="form-group">
+                                <label for="jobTitle">Job Title *</label>
+                                <input type="text" name="jobTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company *</label>
+                                <input type="text" name="company" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location *</label>
+                                <input type="text" name="location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration *</label>
+                                <input type="text" name="duration" placeholder="e.g., Jan 2020 - Present" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description *</label>
+                                <textarea name="description" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addExperience">
+                        <i class="fas fa-plus"></i> Add Experience
+                    </button>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h3>Education</h3>
+                    <div id="educationContainer">
+                        <div class="education-item">
+                            <div class="form-group">
+                                <label for="degree">Degree *</label>
+                                <input type="text" name="degree" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="institution">Institution *</label>
+                                <input type="text" name="institution" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location *</label>
+                                <input type="text" name="location" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration *</label>
+                                <input type="text" name="duration" placeholder="e.g., 2016 - 2020" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addEducation">
+                        <i class="fas fa-plus"></i> Add Education
+                    </button>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-section">
+                    <h3>Skills</h3>
+                    <div id="skillsContainer">
+                        <div class="skills-category">
+                            <div class="form-group">
+                                <label for="category">Category *</label>
+                                <input type="text" name="category" placeholder="e.g., Technical Skills" required>
+                            </div>
+                            <div class="skill-input">
+                                <input type="text" name="skill" placeholder="Add a skill" required>
+                                <button type="button" class="remove-btn">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addSkills">
+                        <i class="fas fa-plus"></i> Add Skills Category
+                    </button>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-section">
+                    <h3>Certifications</h3>
+                    <div id="certificationsContainer">
+                        <div class="certification-item">
+                            <div class="form-group">
+                                <label for="certName">Certification Name</label>
+                                <input type="text" name="certName">
+                            </div>
+                            <div class="form-group">
+                                <label for="organization">Issuing Organization</label>
+                                <input type="text" name="organization">
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date Obtained</label>
+                                <input type="text" name="date" placeholder="e.g., May 2023">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="addCertification">
+                        <i class="fas fa-plus"></i> Add Certification
+                    </button>
+                </div>
+
+                <button type="submit" class="submit-btn">Generate Resume</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resume Analysis Modal -->
+    <div id="resumeAnalysisModal" class="modal">
+        <div class="modal-content resume-analysis">
+            <span class="close">&times;</span>
+            <h2>Analyze Your Resume</h2>
+            <div class="analysis-container">
+                <div class="upload-section">
+                    <div class="upload-area" id="dropZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop your resume PDF here</p>
+                        <p>or</p>
+                        <input type="file" id="resumeFile" accept=".pdf" hidden>
+                        <button class="upload-btn" onclick="document.getElementById('resumeFile').click()">Browse Files</button>
+                    </div>
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <p><i class="fas fa-file-pdf"></i> <span id="fileName"></span></p>
+                        <button class="remove-btn" onclick="removeFile()">Remove</button>
+                    </div>
+                </div>
+                
+                <div class="analysis-section" id="analysisResults" style="display: none;">
+                    <h3>Analysis Results</h3>
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-star"></i>
+                            <h4>Overall Score</h4>
+                        </div>
+                        <div class="score">85/100</div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>Strengths</h4>
+                        </div>
+                        <ul class="strengths-list">
+                            <li>Clear and concise professional summary</li>
+                            <li>Strong work experience descriptions</li>
+                            <li>Good use of action verbs</li>
+                            <li>Well-organized layout</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4>Areas for Improvement</h4>
+                        </div>
+                        <ul class="improvements-list">
+                            <li>Add more quantifiable achievements</li>
+                            <li>Include relevant keywords for ATS</li>
+                            <li>Consider adding a skills section</li>
+                            <li>Expand on recent work experience</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Suggestions</h4>
+                        </div>
+                        <ul class="suggestions-list">
+                            <li>Consider adding a professional summary at the top</li>
+                            <li>Include more specific metrics in your achievements</li>
+                            <li>Add relevant certifications if applicable</li>
+                            <li>Consider adding a skills section with technical proficiencies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resume Improvement Modal -->
+    <div id="resumeImproveModal" class="modal">
+        <div class="modal-content resume-improve">
+            <span class="close">&times;</span>
+            <h2>Improve Your Resume</h2>
+            <div class="improve-container">
+                <div class="upload-section">
+                    <div class="upload-area" id="improveDropZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop your resume PDF here</p>
+                        <p>or</p>
+                        <input type="file" id="improveResumeFile" accept=".pdf" hidden>
+                        <button class="upload-btn" onclick="document.getElementById('improveResumeFile').click()">Browse Files</button>
+                    </div>
+                    <div class="file-info" id="improveFileInfo" style="display: none;">
+                        <p><i class="fas fa-file-pdf"></i> <span id="improveFileName"></span></p>
+                        <button class="remove-btn" onclick="removeImproveFile()">Remove</button>
+                    </div>
+                </div>
+                
+                <div class="improve-section" id="improveResults" style="display: none;">
+                    <h3>Improvement Suggestions</h3>
+                    
+                    <div class="improve-card">
+                        <div class="improve-header">
+                            <i class="fas fa-magic"></i>
+                            <h4>Content Enhancements</h4>
+                        </div>
+                        <ul class="improve-list">
+                            <li>Add quantifiable achievements to your work experience</li>
+                            <li>Include industry-specific keywords for better ATS optimization</li>
+                            <li>Strengthen your professional summary with more impact</li>
+                            <li>Add relevant certifications and training</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="improve-card">
+                        <div class="improve-header">
+                            <i class="fas fa-paint-brush"></i>
+                            <h4>Formatting Improvements</h4>
+                        </div>
+                        <ul class="improve-list">
+                            <li>Use consistent bullet points and spacing</li>
+                            <li>Improve section hierarchy and readability</li>
+                            <li>Optimize white space distribution</li>
+                            <li>Ensure consistent font usage throughout</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="improve-card">
+                        <div class="improve-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Strategic Recommendations</h4>
+                        </div>
+                        <ul class="improve-list">
+                            <li>Tailor skills section to target job requirements</li>
+                            <li>Add a projects section to showcase practical experience</li>
+                            <li>Include relevant volunteer work or community involvement</li>
+                            <li>Add a languages section if applicable</li>
+                        </ul>
+                    </div>
+
+                    <div class="improve-actions">
+                        <button class="action-btn download-btn">
+                            <i class="fas fa-download"></i> Download Improved Resume
+                        </button>
+                        <button class="action-btn apply-btn">
+                            <i class="fas fa-check"></i> Apply All Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cover Letter Modal -->
+    <div id="coverLetterModal" class="modal">
+        <div class="modal-content cover-letter">
+            <span class="close">&times;</span>
+            <h2>Write Your Cover Letter</h2>
+            <div class="cover-letter-container">
+                <div class="form-section">
+                    <h3>Job Details</h3>
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title *</label>
+                        <input type="text" id="jobTitle" name="jobTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyName">Company Name *</label>
+                        <input type="text" id="companyName" name="companyName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDescription">Job Description *</label>
+                        <textarea id="jobDescription" name="jobDescription" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Your Information</h3>
+                    <div class="form-group">
+                        <label for="yourName">Your Name *</label>
+                        <input type="text" id="yourName" name="yourName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="yourEmail">Your Email *</label>
+                        <input type="email" id="yourEmail" name="yourEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="yourPhone">Your Phone</label>
+                        <input type="tel" id="yourPhone" name="yourPhone">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Key Points to Highlight</h3>
+                    <div class="form-group">
+                        <label for="keySkills">Key Skills *</label>
+                        <textarea id="keySkills" name="keySkills" placeholder="List your relevant skills" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="achievements">Key Achievements *</label>
+                        <textarea id="achievements" name="achievements" placeholder="List your relevant achievements" required></textarea>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="generate-btn">
+                        <i class="fas fa-magic"></i> Generate Cover Letter
+                    </button>
+                    <button class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Search Tips Modal -->
+    <div id="jobSearchModal" class="modal">
+        <div class="modal-content job-search">
+            <span class="close">&times;</span>
+            <h2>Job Search Tips</h2>
+            <div class="job-search-container">
+                <div class="search-section">
+                    <div class="search-filters">
+                        <div class="form-group">
+                            <label for="jobType">Job Type</label>
+                            <select id="jobType" name="jobType">
+                                <option value="">Any</option>
+                                <option value="full-time">Full Time</option>
+                                <option value="part-time">Part Time</option>
+                                <option value="contract">Contract</option>
+                                <option value="internship">Internship</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Experience Level</label>
+                            <select id="experience" name="experience">
+                                <option value="">Any</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="mid">Mid Level</option>
+                                <option value="senior">Senior Level</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="City, State, or Remote">
+                        </div>
+                    </div>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i> Search Jobs
+                    </button>
+                </div>
+
+                <div class="tips-section">
+                    <div class="tip-card">
+                        <div class="tip-header">
+                            <i class="fas fa-bullseye"></i>
+                            <h4>Job Search Strategy</h4>
+                        </div>
+                        <ul class="tip-list">
+                            <li>Use specific keywords in your search</li>
+                            <li>Set up job alerts for relevant positions</li>
+                            <li>Follow companies you're interested in</li>
+                            <li>Network with industry professionals</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-header">
+                            <i class="fas fa-file-alt"></i>
+                            <h4>Application Tips</h4>
+                        </div>
+                        <ul class="tip-list">
+                            <li>Customize your resume for each application</li>
+                            <li>Write compelling cover letters</li>
+                            <li>Follow up after applying</li>
+                            <li>Keep track of your applications</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <div class="tip-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Market Insights</h4>
+                        </div>
+                        <ul class="tip-list">
+                            <li>Research industry trends</li>
+                            <li>Understand salary expectations</li>
+                            <li>Identify in-demand skills</li>
+                            <li>Monitor company growth</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interview Preparation Modal -->
+    <div id="interviewPrepModal" class="modal">
+        <div class="modal-content interview-prep">
+            <span class="close">&times;</span>
+            <h2>Interview Preparation</h2>
+            <div class="interview-prep-container">
+                <div class="prep-section">
+                    <div class="form-group">
+                        <label for="jobRole">Job Role</label>
+                        <input type="text" id="jobRole" name="jobRole" placeholder="e.g., Software Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label for="experienceLevel">Experience Level</label>
+                        <select id="experienceLevel" name="experienceLevel">
+                            <option value="entry">Entry Level</option>
+                            <option value="mid">Mid Level</option>
+                            <option value="senior">Senior Level</option>
+                        </select>
+                    </div>
+                    <button class="generate-prep-btn">
+                        <i class="fas fa-magic"></i> Generate Preparation Plan
+                    </button>
+                </div>
+
+                <div class="prep-content">
+                    <div class="prep-card">
+                        <div class="prep-header">
+                            <i class="fas fa-question-circle"></i>
+                            <h4>Common Questions</h4>
+                        </div>
+                        <ul class="prep-list">
+                            <li>Tell me about yourself</li>
+                            <li>Why do you want to work here?</li>
+                            <li>What are your strengths and weaknesses?</li>
+                            <li>Where do you see yourself in 5 years?</li>
+                        </ul>
+                    </div>
+
+                    <div class="prep-card">
+                        <div class="prep-header">
+                            <i class="fas fa-tasks"></i>
+                            <h4>Technical Preparation</h4>
+                        </div>
+                        <ul class="prep-list">
+                            <li>Review core concepts</li>
+                            <li>Practice coding problems</li>
+                            <li>Study system design</li>
+                            <li>Prepare for technical discussions</li>
+                        </ul>
+                    </div>
+
+                    <div class="prep-card">
+                        <div class="prep-header">
+                            <i class="fas fa-users"></i>
+                            <h4>Behavioral Tips</h4>
+                        </div>
+                        <ul class="prep-list">
+                            <li>Use the STAR method</li>
+                            <li>Prepare specific examples</li>
+                            <li>Practice active listening</li>
+                            <li>Show enthusiasm and engagement</li>
+                        </ul>
+                    </div>
+
+                    <div class="prep-card">
+                        <div class="prep-header">
+                            <i class="fas fa-video"></i>
+                            <h4>Virtual Interview Tips</h4>
+                        </div>
+                        <ul class="prep-list">
+                            <li>Test your equipment</li>
+                            <li>Choose a quiet location</li>
+                            <li>Dress professionally</li>
+                            <li>Maintain eye contact</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="practice-btn">
+                        <i class="fas fa-play"></i> Start Practice Session
+                    </button>
+                    <button class="download-prep-btn">
+                        <i class="fas fa-download"></i> Download Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
