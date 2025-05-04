@@ -589,12 +589,13 @@ body {
     font-weight: 500;
 }
 
-.ai-assistant-chat {
+.ai-assistant-chat, .interview-chat {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 16px;
     overflow: hidden;
+    min-height: 200px; /* Ensure minimum height for chat area */
 }
 
 .chat-messages {
@@ -602,6 +603,7 @@ body {
     overflow-y: auto;
     margin-bottom: 20px;
     padding-right: 10px;
+    min-height: 100px; /* Ensure minimum height for messages */
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -652,7 +654,10 @@ body {
     padding: 10px;
     background-color: var(--bg-tertiary);
     border-radius: 20px;
-    margin-top: 10px;
+    margin-top: auto; /* Push to bottom */
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
 .chat-input input {
@@ -849,20 +854,21 @@ body {
 }
 
 .metrics-container {
-    height: 50%;
-    background-color: white;
+    height: 40%;
+    background-color: var(--bg-primary);
     border-radius: 12px;
     padding: 12px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 12px;
+    margin-bottom: 12px;
 }
 
 .metric-card {
-    background-color: var(--bg-secondary);
+    background-color: #000000;
     border-radius: 8px;
-    padding: 10px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -873,21 +879,47 @@ body {
 }
 
 .metric-title {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text-secondary);
     font-weight: 500;
 }
 
 .metric-value {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     color: var(--accent-color);
 }
 
-.metric-description {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    display: none;
+.analysis-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.analysis-btn, .suggestion-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.analysis-btn:hover, .suggestion-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.analysis-btn i, .suggestion-btn i {
+    font-size: 16px;
 }
 
 .interview-right {
@@ -1949,4 +1981,50 @@ body {
 .category-btn span {
     font-size: 14px;
     font-weight: 500;
+}
+
+/* Interview Field Selection */
+.field-selection {
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    max-height: 200px; /* Limit height of field selection */
+    overflow-y: auto;
+}
+
+.field-selection h3 {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.field-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.field-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.field-btn:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.field-btn:active {
+    transform: translateY(0);
 } 

@@ -995,4 +995,274 @@ document.addEventListener('DOMContentLoaded', () => {
             handleAIOptionClick(optionType);
         });
     });
+
+    // Chat functionality
+    const chatInput = document.querySelector('.chat-input input');
+    const sendBtn = document.querySelector('.chat-input .send-btn');
+    const chatMessages = document.querySelector('.chat-messages');
+
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message) {
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.innerHTML = `<p>${message}</p>`;
+            chatMessages.appendChild(userMessage);
+
+            // Clear input
+            chatInput.value = '';
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulate AI response (you can replace this with actual AI integration)
+            setTimeout(() => {
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'message ai-message';
+                aiMessage.innerHTML = `<p>I understand you're asking about "${message}". How can I help you with that?</p>`;
+                chatMessages.appendChild(aiMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+    }
+
+    // Send message on button click
+    sendBtn.addEventListener('click', sendMessage);
+
+    // Send message on Enter key
+    chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // AI Interview Questions
+    const interviewQuestions = {
+        'ai': [
+            "What is the difference between supervised and unsupervised learning?",
+            "Explain the concept of overfitting in machine learning.",
+            "What are neural networks and how do they work?",
+            "Describe a real-world application of AI you find interesting.",
+            "What are the ethical considerations in AI development?"
+        ],
+        'web': [
+            "Explain the difference between REST and GraphQL APIs.",
+            "What are the key features of React hooks?",
+            "How do you handle state management in a large web application?",
+            "Explain the concept of responsive design.",
+            "What are your strategies for optimizing website performance?"
+        ],
+        'app': [
+            "What are the key differences between native and cross-platform development?",
+            "Explain the concept of state management in mobile apps.",
+            "How do you handle offline functionality in mobile applications?",
+            "What are the best practices for mobile app security?",
+            "How do you ensure good user experience in mobile apps?"
+        ],
+        'other': [
+            "Tell me about yourself and your background.",
+            "What are your greatest strengths and weaknesses?",
+            "Where do you see yourself in 5 years?",
+            "How do you handle pressure and tight deadlines?",
+            "What motivates you in your work?"
+        ]
+    };
+
+    let currentQuestionIndex = 0;
+    let selectedField = null;
+    let interviewScore = 0;
+
+    // AI Interview Chat Functionality
+    const interviewChatInput = document.querySelector('.interview-chat .chat-input input');
+    const interviewSendBtn = document.querySelector('.interview-chat .chat-input .send-btn');
+    const interviewChatMessages = document.querySelector('.interview-chat .chat-messages');
+
+    function startInterview(field) {
+        selectedField = field;
+        currentQuestionIndex = 0;
+        interviewScore = 0;
+        
+        // Clear previous messages
+        interviewChatMessages.innerHTML = '';
+        
+        // Add welcome message
+        const welcomeMessage = document.createElement('div');
+        welcomeMessage.className = 'message ai-message';
+        welcomeMessage.innerHTML = `<p>Welcome to your ${field.toUpperCase()} interview! Let's begin with the first question:</p>`;
+        interviewChatMessages.appendChild(welcomeMessage);
+        
+        // Ask first question
+        askNextQuestion();
+    }
+
+    function askNextQuestion() {
+        if (currentQuestionIndex < interviewQuestions[selectedField].length) {
+            const question = interviewQuestions[selectedField][currentQuestionIndex];
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'message ai-message';
+            aiMessage.innerHTML = `<p>${question}</p>`;
+            interviewChatMessages.appendChild(aiMessage);
+            interviewChatMessages.scrollTop = interviewChatMessages.scrollHeight;
+        } else {
+            // Interview completed
+            const finalScore = Math.floor(Math.random() * 30) + 70; // Random score between 70-100
+            const completionMessage = document.createElement('div');
+            completionMessage.className = 'message ai-message';
+            completionMessage.innerHTML = `<p>Thank you for completing the interview! Your score is ${finalScore}/100.</p>`;
+            interviewChatMessages.appendChild(completionMessage);
+            interviewChatMessages.scrollTop = interviewChatMessages.scrollHeight;
+        }
+    }
+
+    function sendInterviewMessage() {
+        const message = interviewChatInput.value.trim();
+        if (message) {
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.innerHTML = `<p>${message}</p>`;
+            interviewChatMessages.appendChild(userMessage);
+
+            // Clear input
+            interviewChatInput.value = '';
+
+            // Scroll to bottom
+            interviewChatMessages.scrollTop = interviewChatMessages.scrollHeight;
+
+            // Move to next question
+            currentQuestionIndex++;
+            setTimeout(() => {
+                askNextQuestion();
+            }, 1000);
+        }
+    }
+
+    // Add field selection buttons
+    const interviewRight = document.querySelector('.interview-right');
+    if (interviewRight) {
+        const fieldSelection = document.createElement('div');
+        fieldSelection.className = 'field-selection';
+        fieldSelection.innerHTML = `
+            <h3>Select Interview Field</h3>
+            <div class="field-buttons">
+                <button class="field-btn" data-field="ai">Artificial Intelligence</button>
+                <button class="field-btn" data-field="web">Web Development</button>
+                <button class="field-btn" data-field="app">App Development</button>
+                <button class="field-btn" data-field="other">Other</button>
+            </div>
+        `;
+        // Insert before the chat section instead of replacing it
+        const chatSection = interviewRight.querySelector('.interview-chat');
+        if (chatSection) {
+            interviewRight.insertBefore(fieldSelection, chatSection);
+        }
+
+        // Add event listeners for field selection
+        document.querySelectorAll('.field-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const field = button.getAttribute('data-field');
+                startInterview(field);
+                // Hide field selection but keep chat visible
+                fieldSelection.style.display = 'none';
+            });
+        });
+    }
+
+    // Send message on button click
+    if (interviewSendBtn) {
+        interviewSendBtn.addEventListener('click', sendInterviewMessage);
+    }
+
+    // Send message on Enter key
+    if (interviewChatInput) {
+        interviewChatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendInterviewMessage();
+            }
+        });
+    }
+
+    // Add analysis and suggestion buttons to metrics container
+    const metricsContainer = document.querySelector('.metrics-container');
+    if (metricsContainer) {
+        const analysisButtons = document.createElement('div');
+        analysisButtons.className = 'analysis-buttons';
+        analysisButtons.innerHTML = `
+            <button class="analysis-btn">
+                <i class="fas fa-chart-line"></i>
+                Analysis
+            </button>
+            <button class="suggestion-btn">
+                <i class="fas fa-lightbulb"></i>
+                Suggestions
+            </button>
+        `;
+        metricsContainer.parentNode.insertBefore(analysisButtons, metricsContainer.nextSibling);
+
+        // Analysis button click handler
+        const analysisBtn = analysisButtons.querySelector('.analysis-btn');
+        analysisBtn.addEventListener('click', () => {
+            const emotion = document.getElementById('emotion-value').textContent;
+            const confidence = document.getElementById('confidence-value').textContent;
+            const posture = document.getElementById('posture-value').textContent;
+            const overall = document.getElementById('overall-score').textContent;
+
+            const analysisMessage = document.createElement('div');
+            analysisMessage.className = 'message ai-message';
+            analysisMessage.innerHTML = `
+                <p>Current Analysis:</p>
+                <ul>
+                    <li>Emotion: ${emotion}</li>
+                    <li>Confidence: ${confidence}</li>
+                    <li>Posture: ${posture}</li>
+                    <li>Overall Score: ${overall}</li>
+                </ul>
+            `;
+            interviewChatMessages.appendChild(analysisMessage);
+            interviewChatMessages.scrollTop = interviewChatMessages.scrollHeight;
+        });
+
+        // Suggestion button click handler
+        const suggestionBtn = analysisButtons.querySelector('.suggestion-btn');
+        suggestionBtn.addEventListener('click', () => {
+            const suggestions = [
+                "Maintain eye contact with the interviewer",
+                "Sit up straight and maintain good posture",
+                "Smile naturally to show confidence",
+                "Use hand gestures appropriately",
+                "Speak clearly and at a moderate pace",
+                "Take deep breaths to stay calm",
+                "Keep your shoulders relaxed",
+                "Nod occasionally to show engagement",
+                "Maintain a positive facial expression",
+                "Use the STAR method for answering questions"
+            ];
+
+            const randomSuggestions = suggestions.sort(() => 0.5 - Math.random()).slice(0, 3);
+            
+            const suggestionMessage = document.createElement('div');
+            suggestionMessage.className = 'message ai-message';
+            suggestionMessage.innerHTML = `
+                <p>Here are some suggestions to improve your interview performance:</p>
+                <ul>
+                    ${randomSuggestions.map(suggestion => `<li>${suggestion}</li>`).join('')}
+                </ul>
+            `;
+            interviewChatMessages.appendChild(suggestionMessage);
+            interviewChatMessages.scrollTop = interviewChatMessages.scrollHeight;
+        });
+    }
+
+    // Update AI Assistant options to keep chat visible
+    if (aiAssistantContainer) {
+        const aiAssistantOptions = aiAssistantContainer.querySelector('.ai-assistant-options');
+        const aiAssistantChat = aiAssistantContainer.querySelector('.ai-assistant-chat');
+        
+        if (aiAssistantOptions && aiAssistantChat) {
+            // Make sure chat is always visible
+            aiAssistantChat.style.display = 'flex';
+            aiAssistantChat.style.flex = '1';
+        }
+    }
 });
