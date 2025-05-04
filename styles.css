@@ -686,7 +686,8 @@ body {
 
 .chat-input .send-btn:hover,
 .chat-input .speech-btn:hover {
-    background: var(--bluish-tint);
+    color: var(--accent-color);
+    background: none;
 }
 
 .chat-input .speech-btn.active {
@@ -736,7 +737,7 @@ body {
 
 .chat-input .tts-btn:hover {
     color: var(--accent-color);
-    background-color: var(--hover-color);
+    background: none;
 }
 
 .chat-input .tts-btn.active {
@@ -915,6 +916,7 @@ body {
 .analysis-btn:hover, .suggestion-btn:hover {
     border-color: var(--accent-color);
     color: var(--accent-color);
+    background: none;
     transform: translateY(-2px);
 }
 
@@ -1970,7 +1972,7 @@ body {
 .category-btn:hover {
     border-color: var(--accent-color);
     transform: translateY(-2px);
-    background-color: var(--hover-color);
+    background: none;
 }
 
 .category-btn i {
@@ -2020,8 +2022,9 @@ body {
 }
 
 .field-btn:hover {
-    background: var(--accent-color);
-    color: white;
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: none;
     transform: translateY(-2px);
 }
 
